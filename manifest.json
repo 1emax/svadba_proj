@@ -39,12 +39,12 @@
     }
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "description": "Приложение для брачных агентств",
+  "description": "Приложение для брачных агентств1",
   "icons": {
     "128": "images/icon128.png"
   },
   "manifest_version": 2,
-  "name": "SpeedChat",
+  "name": "SpeedChat1",
   "options_page": "html/options.html",
   "page_action": {
     "default_icon": "images/heart2.png",
