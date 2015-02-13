@@ -1,0 +1,185 @@
+body{
+    width: 441px;
+}
+
+html, body {
+    /*width: 99%;
+    height: 99%;
+    overflow: hidden;*/
+}
+
+#fSetting {
+    /*
+    width: 100%;
+    height: 100%;
+    */
+}
+
+#btnStart {
+    margin-top: 5px;
+}
+
+.blackList {
+    position: relative;
+    float: left;
+}
+
+.notImg{
+    border: 1px solid rgba(0, 0, 0, 0.24);
+}
+.notImg>.user_id{
+    width: 56px;
+    position: static;
+    float: left;
+    text-align: left;
+    padding-left: 2px;
+}
+.notImg>.btnDel{
+    top: 2px;
+    right: 2px;
+}
+
+#BlackList{
+    padding-top: 2px;
+}
+
+#BlackList:after {
+    content:'';
+    display:block;
+    clear: both;
+}
+
+.mailList textarea {
+    width: 100%;
+    min-height: 60px;
+}
+
+.user_id {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    text-align: center;
+    background: #eee;
+    opacity: 0.7;
+    font-size: 10px;
+    border: none;
+    padding: 0;
+}
+
+.btnDel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 12px;
+    width: 12px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 12px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: yellow;
+}
+
+#igAge>label:first-child, #igSendTarget>label:first-child{
+    text-align: left !important;
+}
+
+.form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+    padding-top: 0;
+}
+
+.text-bold{
+    font-size: 18px;
+    line-height: 19px;
+}
+
+.full{
+    margin: 0 !important;
+    padding: 0;
+}
+
+#toDate{
+    color: #fff;
+    cursor: pointer;
+}
+#toDate:hover{
+    font-weight: bolder;
+    color: #e8e1e3;
+}
+
+#status{
+    margin-top: 5px;
+}
+
+#lblSync{
+    display: block;
+}
+
+#progress{
+    margin-bottom: 0;
+}
+
+#mailVal{
+    width: 100%;
+    resize: vertical;
+    font-size: 15px;
+}
+
+#sMailPhrase .input-group{
+    position: relative;
+    width: 100%;
+    height: 23px;
+}
+
+#sMailPhrase select{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+}
+
+#sMailPhrase input{
+    width: 95%;
+    height: 23px;
+    position: absolute;
+    top: 1px;
+    padding: 0;
+    left: 1px;
+    z-index: 2;
+    border: none;
+}
+
+.photos{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.unsel{
+    opacity: 0.5;
+}
+
+.unsel:hover{
+    opacity: 1;
+}
+
+.info_circle{
+    border: 4px solid #B1F3E6;
+    border-radius: 50%;
+    background-color: #B1F3E6;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 14px;
+}
+
+#table hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.mt10{
+    margin-top: 11px;
+}

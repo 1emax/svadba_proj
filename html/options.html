@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Настройки SpeedChat</title>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/flat-ui.css" rel="stylesheet" type="text/css">
+    <link href="../css/options.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="container hidden">
+    <form id="fLogin" class="form-signin" role="form">
+        <input id="login" type="text" class="form-control" name="m" placeholder="Логин" required autofocus>
+        <input id="passwd"  type="password" class="form-control" name="p" placeholder="Пароль" required>
+        <button class="btn btn-lg btn-info btn-block" type="submit">Войти</button>
+    </form>
+</div>
+
+<div id="menu" class="container hidden">
+    <span id="loginText"></span>
+    <button id="btnExit" type="submit" class="btn btn-lg btn-success btn-block">Выйти</button>
+</div>
+
+<div id="help" class="container">
+    <div class="row">
+        <div class="col-md-12 col-notfloat text-center">
+            <p>Для включения дополнительных функций требуется логин и пароль.</p>
+            <p>Получить логин и пароль можно, если вы пользуетесь нашими услугами и у вас более 10 анкет подключенных к нашей системе.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/bs3.js"></script>
+<script src="../js/lib/moment.min.js"></script>
+<script src="../js/lang.js"></script>
+<script src="../js/options.js"></script>
+</body>
+</html>

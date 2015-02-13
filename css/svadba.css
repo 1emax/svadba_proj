@@ -1,0 +1,83 @@
+@-webkit-keyframes colorPulse { 0% {background-color: red;} 100% {background-color: #fff100;} }
+
+.add_red{
+    background-color: red;
+    -webkit-animation: colorPulse 0.3s infinite alternate;
+}
+
+
+#goodusr{
+    position: absolute;
+    left: 6px;
+    top: 42px;
+    width: 248px;
+    height: 152px;
+    border: 1px solid rgb(211, 211, 211);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    z-index: 16777271;
+}
+
+#goodusr>li{
+    padding: 0 10px;
+    font-family: Arial,sans-serif;
+    font-size: 9pt;
+    cursor: pointer;
+    line-height: 23px;
+    border-bottom: solid 1px #f4f4f4;
+    position: relative;
+}
+
+#goodusr>li:hover {
+    background: #E8EBEC;
+}
+
+#goodusr>li>a{
+    display: block;
+    color: black;
+}
+
+#goodusr>li .delete, #goodusr>li .free, #goodusr>li .notfree{
+    background-image: url('//47ad.itocd.net/chat/i/sv/icons/static.png?2&v24c1c2c9');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#goodusr>li .free, #goodusr>li .notfree{
+    width: 11px;
+    height: 11px;
+}
+
+#goodusr>li .delete{
+    top: 7px;
+    right: -9px;
+    width: 9px;
+    height: 9px;
+    background-position: 0 -36px;
+    -webkit-transition: right 0.25s ease-out 0s;
+    -moz-transition: right 0.25s ease-out 0s;
+    -o-transition: right 0.25s ease-out 0s;
+    -ms-transition: right 0.25s ease-out 0s;
+    transition: right 0.25s ease-out 0s;
+    position: absolute;
+}
+
+#goodusr>li:hover>.delete {
+    right: 5px;
+    -webkit-transition: right 0.25s ease-out 0.5s;
+    -moz-transition: right 0.25s ease-out 0.5s;
+    -o-transition: right 0.25s ease-out 0.5s;
+    -ms-transition: right 0.25s ease-out 0.5s;
+    transition: right 0.25s ease-out 0.5s;
+}
+
+#goodusr>li .free{
+    background-position: 0 0;
+}
+
+#goodusr>li .notfree{
+    background-position: 0 -12px;
+}

@@ -1,0 +1,282 @@
+<!doctype html>
+<head>
+    <title>Popup</title>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/flat-ui.css" rel="stylesheet" type="text/css">
+    <link href="../css/popup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h4 id="initH" class="hidden">Инициализация...</h4>
+<span id="info" class="label label-info col-xs-12"><span id="login" class="pull-left">UserID</span><a id="toDate" href="http://speedchat.com.ua/#donate" target="_blank" class="pull-right" title="Пополнить">14:24 03-11-2013</a></span>
+
+<form id="fSetting" class="form-horizontal" role="form">
+    <div class="panel-group" id="aSetting">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sChat">
+                        Настройки
+                    </a>
+                </h4>
+            </div>
+            <div id="sChat" class="panel-collapse collapse in">
+                <div class="panel-body">
+
+                    <div id="igSpeed" class="form-group">
+                        <label for="iSpeed" class="col-xs-3 control-label">Скорость:</label>
+                        <div class="tooltiped col-xs-8 left">
+                            <select id="iSpeed" name="speed" class="form-control"></select>
+                        </div>
+                        <div class="col-xs-1 pull-right mt10">
+                            <div class="pull-right istooltip info_circle" data-toggle="tooltip" data-placement="left" title="1 сообщение в N секунд">?</div>
+                        </div>
+                    </div>
+
+                    <div id="igSendTarget" class="form-group hidden">
+                        <label for="sendTarget" class="col-xs-5 control-label">Рассылать по:</label>
+                        <div class="col-xs-7 pull-right">
+                            <select name="sendTarget" id="sendTarget" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div id="igAge" class="form-group hidden">
+                        <label for="iAgeFrom" class="col-xs-4 control-label">Возраст от:</label>
+                        <div class="col-xs-3">
+                            <select id="iAgeFrom" name="age_from" class="form-control"></select>
+                        </div>
+                        <label for="iAgeTo" class="col-xs-2 control-label">до:</label>
+                        <div class="col-xs-3">
+                            <select id="iAgeTo" name="age_to" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div id="igShistory" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iShistory">
+                            <input type="checkbox" value="" id="iShistory" name="shistory" data-toggle="checkbox">
+                            Сохр. историю переписки чата
+                        </label>
+                    </div>
+
+                    <div id="igTranslate" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iTranslate">
+                            <input type="checkbox" value="" id="iTranslate" name="translate" data-toggle="checkbox">
+                            <div class="pull-left">Автоматический перевод</div>
+                            <div class="pull-right istooltip info_circle" data-toggle="tooltip" data-placement="left" title="При выключенном автопереводе нажмите F9 в поле ввода для быстрого перевода">?</div>
+                        </label>
+                    </div>
+
+                    <div id="igDblWrite" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iDblWrite">
+                            <input type="checkbox" value="" id="iDblWrite" name="dblWrite" data-toggle="checkbox">
+                            <div class="pull-left">Повторная отправка</div>
+                            <div class="pull-right istooltip info_circle" data-toggle="tooltip" data-placement="left" title="При первом отказе от общения отсылается еще одно сообщение">?</div>
+                        </label>
+                    </div>
+
+                    <div id="igAutoNew" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iAutoNew">
+                            <input type="checkbox" value="" id="iAutoNew" name="autoNew" data-toggle="checkbox">
+                            Отправлять только новые письма
+                        </label>
+                    </div>
+
+                    <div id="igAutoBlack" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iAutoBlack">
+                            <input type="checkbox" value="" id="iAutoBlack" name="autoBlack" data-toggle="checkbox">
+                            Добавлять в черный список
+                        </label>
+                    </div>
+
+                    <div id="igUstart" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iUstart">
+                            <input type="checkbox" value="" id="iUstart" name="ustart" data-toggle="checkbox">
+                            Бесконечная рассылка
+                        </label>
+                    </div>
+
+                    <div id="igSound" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iSound">
+                            <input type="checkbox" value="" id="iSound" name="nsound" data-toggle="checkbox">
+                            Дополнительное звуковое оповещение
+                        </label>
+                    </div>
+
+                    <div id="igShow" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iShow">
+                            <input type="checkbox" value="" id="iShow" name="show" data-toggle="checkbox">
+                            Отображать рассылку
+                        </label>
+                    </div>
+
+                    <div id="igWithPhoto" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iWithPhoto">
+                            <input type="checkbox" value="" id="iWithPhoto" name="withPhoto" data-toggle="checkbox">
+                            Только с фото
+                        </label>
+                    </div>
+
+                    <div id="igVip" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iVip">
+                            <input type="checkbox" value="" id="iVip" name="vip" data-toggle="checkbox">
+                            Только VIP
+                        </label>
+                    </div>
+<!--
+                    <div id="igOnemonth" class="form-group col-xs-12 hidden">
+                        <label class="checkbox text-bold" for="iOnemonth">
+                            <input type="checkbox" value="" id="iOnemonth" name="onemonth" data-toggle="checkbox">
+                            Письмо в месяц
+                        </label>
+                    </div>
+-->
+                    <div id="igNoname" class="hidden form-group col-xs-12 full">
+                        <input id="iNoname" type="text" name="noname" class="form-control" placeholder="Текст для NoName: hi, so what`s your name?">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="igChatPhrase" class="hidden panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sChatPhrase">
+                        Фразы для чата
+                    </a>
+                </h4>
+            </div>
+            <div id="sChatPhrase" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div id="rTags">
+                        <span id="rTagsName" class="label label-success">%name% - подставить имя</span>
+                        <span id="rTagsAge" class="label label-success">%age% - подставить возраст</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <input id="phraseVal" type="text" class="form-control edtVal" placeholder="Новая фраза: hi %name%">
+                    <span class="input-group-btn">
+                      <button id="phrasesAdd" class="btn btn-success btnAdd" type="button">+</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="PhraseList" class="row allList"></div>
+                </div>
+            </div>
+        </div>
+        <div id="igMailPhrase" class="hidden panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sMailPhrase">
+                        Шаблоны для писем
+                    </a>
+                </h4>
+            </div>
+            <div id="sMailPhrase" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div id="rTagsMail">
+                        <span id="rTagsNameMail" class="label label-success">%name% - подставить имя</span>
+                        <span id="rTagsAgeMail" class="label label-success">%age% - подставить возраст</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <select id="mailList">
+                                    <option selected="selected" value="-1">Добавить новое письмо</option>
+                                </select>
+                                <input id="mailTheme" type="text" class="form-control" placeholder="Введите или выберите тему письма ->">
+                            </div>
+                            <!-- /input-group -->
+                            <textarea id="mailVal" placeholder="Введите текст письма"></textarea>
+                            <div class="btn-group btn-group-justified">
+                                <a id="mailSave" class="btn btn-info" role="button">Сохранить</a>
+                                <a id="mailDel" class="btn btn-danger" role="button">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="igMailPhoto" class="hidden panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sMailPhoto">
+                        Фотографии
+                    </a>
+                </h4>
+            </div>
+            <div id="sMailPhoto" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div id="igFile" class="row hidden">
+                        <div class="col-xs-12">
+                            <input type="file" multiple class="btn btn-danger" name="photo" id="mailPhoto" value="Прекрипить фото"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="Photos" class="col-xs-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="igBlack" class="hidden panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sBlack">
+                        Черный список
+                    </a>
+                </h4>
+            </div>
+            <div id="sBlack" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group">
+                                <input id="blackVal" type="text" class="form-control edtVal" placeholder="ID человека, пример 1523">
+                    <span class="input-group-btn">
+                      <button id="blackAdd" class="btn btn-default btnAdd" type="button">+</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="BlackList" class="allList"></div>
+                </div>
+            </div>
+        </div>
+        <div id="igExtra" class="hidden panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="btn-block" data-toggle="collapse" data-parent="#aSetting" href="#sExtra">
+                        Дополнительно
+                    </a>
+                </h4>
+            </div>
+            <div id="sExtra" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <button id="btnSetSave" class="btn btn-primary btn-block" type="button">Сохранить настройки на сервере</button>
+                    <button id="btnSetLoad" class="btn btn-primary btn-block" type="button">Загрузить настройки с сервера</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="btnStart" type="button" class="btn btn-primary btn-lg btn-block">Начать рассылку!</button>
+</form>
+
+<span id="status" class="label label-info col-xs-12"></span>
+
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/bs3.js"></script>
+<script src="../js/lib/filereader.js"></script>
+<script src="../js/lib/canvas-to-blob.min.js"></script>
+<script src="../js/lang.js"></script>
+<script src="../js/popup.js"></script>
+</body>
+</html>

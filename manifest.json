@@ -1,0 +1,75 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "background": {
+    "scripts": [ "js/lang.js", "js/lib/jquery.js", "js/lib/cookie.js", "js/background.js"]
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": [ "js/lang.js", "js/lib/jquery.js", "js/lib/moment.min.js", "js/lib/cookie.js", "js/lib/md5.min.js", "js/lib/canvas-to-blob.min.js", "js/lib/tinycon.js", "js/extension.js" ],
+      "matches": [
+          "*://*.svadba.com/*"
+        , "*://*.dream-marriage.com/*"
+        , "*://*.zolushka.net/*"
+        , "*://*.habibidate.com/*"
+        , "*://*.globalcompanions.com/*"
+        , "*://*.find-bride.com/*"
+        , "*://*.jump4love.com/*"
+        , "*://*.romancecompass.com/*"
+        , "*://*.hanuma.ru/*"
+        , "*://*.charmingdate.com/*"
+        , "*://*.natashaclub.com/*"
+        , "*://*.star-marriage.com/*"
+        , "*://*.foreignladies.com/*"
+         ],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": true,
+      "js": [ "js/lang.js", "js/lib/jquery.js", "js/sv.js" ],
+      "matches": [ "http://*.svadba.com/Login/Home.aspx" ],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": true,
+      "js": [ "js/lang.js", "js/lib/jquery.js", "js/td.js" ],
+      "matches": [ "*://top-dates.net/Finances/Dues.aspx", "*://top-dates.ru/Finances/Dues.aspx"],
+      "run_at": "document_end"
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "description": "Приложение для брачных агентств",
+  "icons": {
+    "128": "images/icon128.png"
+  },
+  "manifest_version": 2,
+  "name": "SpeedChat",
+  "options_page": "html/options.html",
+  "page_action": {
+    "default_icon": "images/heart2.png",
+    "default_title": "SpeedChat"
+  },
+  "permissions": [ "storage", "unlimitedStorage", "notifications", "webRequest", "webRequestBlocking", "tabs"
+    , "*://*.svadba.com/*"
+    , "*://*.top-dates.net/*"
+    , "*://*.top-dates.ru/*"
+    , "*://*.dream-marriage.com/*"
+    , "*://*.zolushka.net/*"
+    , "*://*.habibidate.com/*"
+    , "*://*.globalcompanions.com/*"
+    , "*://*.find-bride.com/*"
+    , "*://*.jump4love.com/*"
+    , "*://*.romancecompass.com/*"
+    , "*://*.hanuma.ru/*"
+    , "*://*.charmingdate.com/*"
+    , "*://translate.google.com/*"
+    , "*://api.speedchat.com.ua/*"
+    , "*://*.amazonaws.com/*"
+    , "*://*.natashaclub.com/*"
+    , "*://*.star-marriage.com/*"
+    , "*://*.foreignladies.com/*"
+  ],
+  "version": "1.60",
+  "web_accessible_resources": [ "images/heart2.png" ]
+}
