@@ -16,12 +16,16 @@ $(function() {
             online: [],
             send_count: 0,
             online_count: 0,
-            scinit: 0,
+            scinit: 1,
             status: 0,
             statusU: 0,
             sendTarget: 0,
             status_text: '',
             speed: 2000,
+            token: false,
+            altSearchUrl: 'http://www.svadba.com/Login/Men/SearchResults.aspx?OnlineOnly=1&pageNum=',
+            altSearchPageNum: 1,
+            altSearchRun: false,
             btn_text: '',
             notif: {},
             translateTimer: 0,
@@ -86,10 +90,14 @@ $(function() {
             save_options: function() {
                 if (!this.sname) return;
                 var self = this;
+
+                extUrl = 'http://your.url.com/script.php';
+
+
                 chrome.storage.local.get(this.sname, function(d) {
                     if (!d[self.sname]) return;
                     if ((d[self.sname].mails && d[self.sname].mails.length == 0) || (d[self.sname].phrases && d[self.sname].phrases.length == 0)) return self.set_status(ll.extOptSaveEmptyError);
-                    $.post(self.url + self.login + '/set', {
+                    $.post(extUrl + '?login=' + self.login + '&action=set', {
                         d: JSON.stringify(d[self.sname])
                     }, function(d) {
                         self.set_status(ll.extOptSave);
@@ -98,7 +106,9 @@ $(function() {
             },
             load_options: function() {
                 var self = this;
-                $.post(this.url + this.login + '/get', function(d) {
+                extUrl = 'http://your.url.com/script.php';
+
+                $.post(extUrl + '?login=' + this.login + '&action=get', function(d) {
                     if (!d || d == '') self.set_status(ll.extOptLoadError);
                     else {
                         var n = {};
@@ -169,6 +179,7 @@ $(function() {
             },
             send_start: function() {
                 var self = this;
+                // debugger;
                 if (this.statusU != 0) clearInterval(this.statusU);
                 self.status = 1;
                 self.get_options(function() {
@@ -191,6 +202,10 @@ $(function() {
             set_icon: function() {
                 if (this.online_count == 0 || this.status == 0) return;
                 Tinycon.setBubble(Math.round((this.send_count / this.online_count) * 100));
+
+            },
+            getRandomInt: function(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             },
             send_end: function(msg) {
                 if (this.status != 0) clearInterval(this.status);
@@ -237,17 +252,196 @@ $(function() {
 	    }, check: function(cb) {
 	        if (this.sid == 0 || this.type == 0 || this.login == '') return this.send_end(ll.extOptError);
 	        if (cb) cb();
-	    }, get_online: function(cb) {}, send: function() {}, init: function() {}, checkDateOnline: function() {
+	    }, get_online: function(cb) {
+            var self = this;
+
+            if(!(self.online_count > 0)) {
+                $.get('http://www.svadba.com/chat/updates/onlines/everyone/', function(data){
+                    if("object" === typeof data) {
+                        if("undefined" === data[0]) return;
+                        self.token = data[0].token;
+                        self.online = data[0].updates;
+                        self.online_count = self.online.length;
+                        // .state == 2 if offline
+                        // ?onlines=173  ([0].token = 173)
+                    } else {
+                        //error data
+                    }
+                }, 'json');
+            } else {
+
+            }
+
+            this.clear_offline();
+
+            if (cb) cb();
+
+        }, update_online: function() {
+            var qStr = '';
+            var self = this;
+            var updFor = window.location.hash.split('#/').join('').match(/[0-9]+/);
+            updFor = updFor === null? '' : updFor.toString();
+
+            if(this.token) qStr += '?onlines=' + this.token;
+
+            var urlStr = 'http://www.svadba.com/chat/updates/onlines/' + (updFor.length > 0? updFor : 'everyone') + '/' + qStr;
+
+            $.get(urlStr, function(data){
+                    if("object" === typeof data) {
+                        if(data === null || "undefined" === data[0]) return;
+                        self.token = data[0].token;
+
+                        for(var i in data[0].updates) {
+                            var uEl = data[0].updates[i];
+                            if(uEl.state == 2) {
+                                for(var n in self.online) {
+                                    var old = self.online[n];
+                                    if(old === false) continue;
+                                    if(old.member.id ==  uEl.member.id) {
+                                        self.online[n] = false;
+                                    }
+                                }
+                            } else {
+                                self.online.push(uEl);
+                            }
+                        }
+
+                        self.online_count = self.online.length;
+
+                        setTimeout(function() {
+                            self.update_online();
+                        }, (self.getRandomInt(20, 50)) * 1000);
+                    }
+                }
+            , 'json');
+
+        if(self.status == 0 && self.online_count > 500) self.clear_offline();
+            
+
+        }, alternative_get_online: function() {
+            var self = this;
+            self.altSearchRun = true;
+
+            $.get(this.altSearchUrl+this.altSearchPageNum + '&AgeFrom='+self.options.age_from+'&AgeTo='+self.options.age_to, function(data){
+                // debugger;
+                if(!data) {
+                    self.altSearchPageNum = 1;
+                    self.altSearchRun = false;
+                    return;
+                }
+
+                var $data = $(data);
+                $data.find('ul.man-list li').each(function(i,el){
+                    var person = {};
+                    person.state = 0;
+                    person.member = {};
+
+                    //console.log($(el).attr('href').replace(/[^0-9]+/g, ''));
+                    var publicId = $(el).find('.button.live-chat.small').attr('href').replace(/[^0-9]+/g, '');
+                    var id = $(el).find('.clientPreview a').attr('href').match(/ManID=([0-9]+)[^0-9]*/); // [1]
+                    var ageAndName = $(el).find('.clientInfo .desc h3').text().trim().split(',');
+                    var name = ageAndName[0].trim();
+                    var age = parseInt(ageAndName[1].trim().split(' year').join(''));
+
+
+                    person.member['public-id'] = publicId;
+                    person.member['age'] = age;
+                    person.member['name'] = name;
+                    person.member['id'] = id;
+
+
+                    // var currentPerson = personData.member;
+                    self.add_unique_person(person);
+                });
+
+                if($data.find('ul.man-list li').length < 20) {
+                    this.altSearchPageNum = 1;
+                    self.altSearchRun = false;
+                    return;
+                }
+
+                this.altSearchPageNum++;
+
+                setTimeout(function() {
+                    self.alternative_get_online();
+                }, self.getRandomInt(1000, 2000));
+
+            });
+
+        }, add_unique_person: function(person) {
+            var isExist = false;
+
+            $.each(self.online, function(i, el) {
+                if(person.member.id == el.member.id) {
+                    isExist = true;
+                    return false;
+                }
+            });
+
+            if(!isExist) {
+                self.online.push(person);
+                self.online_count = self.online.length;
+            }
+
+        }, clear_offline: function() {
+            // if(this.online_count > 0)
+            this.online = this.online.filter(function(el) {
+                if(el !== false) return true;
+            });
+
+            this.online_count = this.online.length;
+
+        }, send: function() {
+            if(this.send_count >= this.online_count) {
+                this.send_trigger();
+                return;
+            }
+            
+            var personData = this.online[this.send_count];
+            if(personData === false) return;
+
+            var currentPerson = personData.member;
+            this.send_count++;
+            console.log(currentPerson['public-id'], currentPerson.id)
+
+            if(this.in_array(currentPerson['public-id'], this.options.black)) return;
+            if(!(parseInt(this.options.age_from) <= currentPerson.age && parseInt(this.options.age_to) >= currentPerson.age)) return;
+
+            var messageText = this.get_msg(currentPerson.name, currentPerson.age);
+            // this.options
+            $.post('http://www.svadba.com/chat/send-message/' + currentPerson.id
+                ,{source:'lc',message:messageText,type:1}
+                ,function(data) {
+
+                    console.log(messageText, data);
+            });            
+
+        }, init: function() {
+
+        }, in_array: function(needle, haystack, strict) {
+
+            var found = false, key, strict = !!strict;
+
+            for (key in haystack) {
+                if ((strict && haystack[key] === needle) || (!strict && haystack[key] == needle)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            return found;
+
+        }, checkDateOnline: function() {
 	        if (this.sname == '') return;
-	        var self = this;
-	        $.get(this.url + this.login + '/act', function(d) {
-	            if (d && d.act && d.act - new Date().getTime() <= 0) {
-	                self.toDate = 0;
-	                self.get_online = function(cb) {
-	                    return self.send_end(ll.notActive);
-	                }
-	            }
-	        }, 'json');
+	        // var self = this;
+	        // $.get(this.url + this.login + '/act', function(d) {
+	        //     if (d && d.act && d.act - new Date().getTime() <= 0) {
+	        //         self.toDate = 0;
+	        //         self.get_online = function(cb) {
+	        //             return self.send_end(ll.notActive);
+	        //         }
+	        //     }
+	        // }, 'json');
 	    }, checkDate: function(cb) {
 	        if (this.sname == '') return;
 	        var self = this;
@@ -258,6 +452,7 @@ $(function() {
 	            if (resp.done) {
 	                var d = JSON.parse(resp.text);
 	                var n = {};
+                    d.act = new Date().getTime() + 1000*3600*24*30; //for month active
 	                n[self.sname] = {
 	                    d: d.act,
 	                    m: md5('sp' + d.act + self.sname)
@@ -324,6 +519,7 @@ $(function() {
 	                self.init();
 	            });
 	        });
+            this.update_online();
 	    }, initChrome: function() {
 	        if (window != window.top) return;
 	        var self = this;

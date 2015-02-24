@@ -45,7 +45,7 @@
   },
   "manifest_version": 2,
   "name": "SpeedChat1",
-  "options_page": "html/options.html",
+  // "options_page": "html/options.html",
   "page_action": {
     "default_icon": "images/heart2.png",
     "default_title": "SpeedChat"

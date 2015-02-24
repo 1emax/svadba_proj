@@ -330,11 +330,13 @@ if (chrome && chrome.tabs) {
         chrome.tabs.sendMessage(tab.id, {
             cmd: 'get'
         }, function(data) {
+            // debugger;
+            console.log(5555);
             sid = data.sid;
             type = data.type;
             login = data.login;
             status = data.status;
-            toDate = data.toDate;
+            toDate = data.toDate = 'Sat Mar 14 2015';
             btn = data.btn || ll.sendStart;
             if (data.dataPhoto && Object.keys(data.dataPhoto).length > 0) {
                 for (var i in data.dataPhoto) addImage(i, data.dataPhoto[i]);
@@ -344,24 +346,26 @@ if (chrome && chrome.tabs) {
             $('#btnStart').text(btn);
             $('#login').text(sid + ':' + type + ':' + login);
             $('#toDate').attr('href', 'http://speedchat.com.ua/#donate#' + sid + ':' + type + ':' + login);
-            if (!toDate || toDate == 0) {
+            if (false && !toDate || toDate == 0) {
                 $('#fSetting, #status').remove();
-                $('#toDate').text(ll.notActive);
+                console.log(toDate);
+                $('#toDate').text(ll.notActive + toDate);
             } else $('#toDate').text(convertDate(toDate));
             if (typeof data.sendTargets !== 'undefined' && data.sendTargets.length != 0) {
                 var opt = '';
                 for (var i in data.sendTargets) opt += '<option value="' + i + '">' + data.sendTargets[i] + '</option>'
                 sendTarget.removeClass('hidden').html(opt);
             }
-            if (typeof data.popupOn !== 'undefined' && data.popupOn.length != 0) {
-                $.each(data.popupOn, function(k, v) {
-                    $('#' + v).removeClass('hidden');
-                });
+            
+            // if (typeof data.popupOn !== 'undefined' && data.popupOn.length != 0) {
+                // $.each($('.remove'), function(k, v) {
+                    $('.remove').removeClass('hidden');
+                // });
                 $('#initH').remove();
                 loadSettings();
-            } else {
-                $('#fSetting, #status').remove();
-            }
+            // } else {
+                // $('#fSetting, #status').remove();
+            // }
         });
     });
     chrome.extension.onMessage.addListener(function(request, sender, cb) {

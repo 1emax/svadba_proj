@@ -131,8 +131,11 @@ function saveOptions(opt) {
         active: true
     }, function(tab) {
         tab = tab[0];
+        // debugger;
         inBack(tab.id, 'get', {}, function(data) {
+            // debugger;
             if (!data || !data.sid) return;
+            console.log(data, tab,opt);
             var sname = data.sid + '_' + data.type + '_' + data.login;
             if (!opt[sname]['black']) opt[sname]['black'] = [];
             if (data.newBlack) opt[sname]['black'] = opt[sname]['black'].concat(data.newBlack);
